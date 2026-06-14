@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+
+  # Service principal : API FastAPI
+  api:
+    build: .
+    container_name: space-explorer-api
+    ports:
+      - "8000:8000"
+    environment:
+      - NASA_API_KEY=${NASA_API_KEY:-KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh}
+    networks:
+      - space-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Service secondaire : Frontend Nginx (bonus)
+  frontend:
+    image: nginx:alpine
+    container_name: space-explorer-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    networks:
+      - space-network
+    depends_on:
+      - api
+    restart: unless-stopped
+
+networks:
+  space-network:
+    driver: bridge
