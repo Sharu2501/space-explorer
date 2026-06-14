@@ -28,6 +28,8 @@ jobs:
         run: ruff check app/ tests/
 
       - name: Run tests with coverage
+        env:
+          NASA_API_KEY: "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh"
         run: |
           pytest tests/ \
             --cov=app \
@@ -56,7 +58,7 @@ jobs:
 
       - name: Test Docker container starts
         run: |
-          docker run -d -p 8000:8000 --name test-container space-explorer:latest
+          docker run -d -p 8000:8000 -e NASA_API_KEY="KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh" --name test-container space-explorer:latest
           sleep 5
           curl -f http://localhost:8000/ || exit 1
           docker stop test-container
