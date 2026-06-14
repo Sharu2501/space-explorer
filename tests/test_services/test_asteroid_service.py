@@ -1,9 +1,10 @@
 """Tests unitaires du service Asteroid avec mock HTTP (respx)."""
-import pytest
 import httpx
+import pytest
 import respx
-from app.services.asteroid_service import AsteroidService
+
 from app.data.models import Asteroid, AsteroidListResponse
+from app.services.asteroid_service import AsteroidService
 from tests.mock_data import MOCK_ASTEROID_FEED, MOCK_SINGLE_ASTEROID
 
 

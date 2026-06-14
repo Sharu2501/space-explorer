@@ -1,14 +1,15 @@
 """Tests unitaires de la couche Data (modèles Pydantic)."""
 import pytest
 from pydantic import ValidationError
+
 from app.data.models import (
     APODResponse,
     Asteroid,
-    AsteroidDiameter,
-    AsteroidVelocity,
-    AsteroidMissDistance,
     AsteroidCloseApproach,
+    AsteroidDiameter,
     AsteroidListResponse,
+    AsteroidMissDistance,
+    AsteroidVelocity,
 )
 
 

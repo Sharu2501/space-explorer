@@ -1,9 +1,10 @@
 """Tests unitaires du service APOD avec mock HTTP (respx)."""
-import pytest
 import httpx
+import pytest
 import respx
-from app.services.apod_service import APODService
+
 from app.data.models import APODResponse
+from app.services.apod_service import APODService
 from tests.mock_data import MOCK_APOD_RESPONSE
 
 
