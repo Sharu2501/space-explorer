@@ -19,7 +19,7 @@ class AsteroidService:
 
     def __init__(
             self,
-            api_key: str = "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh",
+            api_key: str = None,
             client: httpx.AsyncClient = None
     ):
         self.api_key = api_key

@@ -57,8 +57,10 @@ jobs:
         run: docker build -t space-explorer:latest .
 
       - name: Test Docker container starts
+        env:
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
         run: |
-          docker run -d -p 8000:8000 -e NASA_API_KEY="${{ secrets.NASA_API_KEY }}" --name test-container space-explorer:latest
+          docker run -d -p 8000:8000 -e NASA_API_KEY="$NASA_API_KEY" --name test-container space-explorer:latest
           sleep 5
           curl -f http://localhost:8000/ || exit 1
           docker stop test-container
