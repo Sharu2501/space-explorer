@@ -1,6 +1,15 @@
-import httpx
 from datetime import date
-from app.data.models import Asteroid, AsteroidListResponse, AsteroidDiameter, AsteroidVelocity, AsteroidMissDistance, AsteroidCloseApproach
+
+import httpx
+
+from app.data.models import (
+    Asteroid,
+    AsteroidCloseApproach,
+    AsteroidDiameter,
+    AsteroidListResponse,
+    AsteroidMissDistance,
+    AsteroidVelocity,
+)
 
 NASA_BASE_URL = "https://api.nasa.gov"
 
@@ -8,7 +17,11 @@ NASA_BASE_URL = "https://api.nasa.gov"
 class AsteroidService:
     """Service for NASA Near Earth Object Web Service (NeoWs)."""
 
-    def __init__(self, api_key: str = "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh", client: httpx.AsyncClient = None):
+    def __init__(
+            self,
+            api_key: str = "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh",
+            client: httpx.AsyncClient = None
+    ):
         self.api_key = api_key
         self._client = client
 

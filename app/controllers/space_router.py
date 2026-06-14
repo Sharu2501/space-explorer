@@ -1,8 +1,10 @@
+import os
+
 from fastapi import APIRouter, HTTPException, Query
+
+from app.data.models import APODResponse, Asteroid, AsteroidListResponse
 from app.services.apod_service import APODService
 from app.services.asteroid_service import AsteroidService
-from app.data.models import APODResponse, AsteroidListResponse, Asteroid
-import os
 
 router = APIRouter()
 
@@ -14,8 +16,6 @@ if not NASA_API_KEY:
 apod_service = APODService(api_key=NASA_API_KEY)
 asteroid_service = AsteroidService(api_key=NASA_API_KEY)
 
-
-# ─── APOD ────────────────────────────────────────────────────────────────────
 
 # ─── APOD ────────────────────────────────────────────────────────────────────
 
@@ -32,7 +32,10 @@ async def get_apod(date: str = Query(None, description="Date au format YYYY-MM-D
     try:
         return await apod_service.get_apod(date=date)
     except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Erreur NASA APOD : {str(e)}")
+        raise HTTPException(
+            status_code=502, detail=f"Erreur NASA APOD : {str(e)}"
+        )
+
 
 # ─── Asteroids ───────────────────────────────────────────────────────────────
 
@@ -45,7 +48,11 @@ async def get_today_asteroids():
         raise HTTPException(status_code=502, detail=f"Erreur NASA NeoWs : {str(e)}")
 
 
-@router.get("/asteroids/date/{target_date}", response_model=AsteroidListResponse, summary="Astéroïdes par date")
+@router.get(
+    "/asteroids/date/{target_date}",
+    response_model=AsteroidListResponse,
+    summary="Astéroïdes par date"
+)
 async def get_asteroids_by_date(target_date: str):
     """
     Retourne les astéroïdes pour une date donnée.

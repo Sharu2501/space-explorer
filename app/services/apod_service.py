@@ -1,4 +1,5 @@
 import httpx
+
 from app.data.models import APODResponse
 
 NASA_BASE_URL = "https://api.nasa.gov"
@@ -7,7 +8,11 @@ NASA_BASE_URL = "https://api.nasa.gov"
 class APODService:
     """Service for NASA Astronomy Picture of the Day API."""
 
-    def __init__(self, api_key: str = "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh", client: httpx.AsyncClient = None):
+    def __init__(
+            self,
+            api_key: str = "KrVBixAMRPibikKOBY0OdymP7O2AQh2IfwKDFBZh",
+            client: httpx.AsyncClient = None,
+    ):
         self.api_key = api_key
         self._client = client  # permet l'injection pour les tests
 
